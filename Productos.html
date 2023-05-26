@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Tienda de herramientas automotrices - Productos</title>
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+			background-color: #f2f2f2;
+		}
+
+		h1 {
+			text-align: center;
+			color: #333;
+		}
+
+		.container {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			flex-wrap: wrap;
+		}
+
+		.product {
+			background-color: #fff;
+			border-radius: 10px;
+			box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+			padding: 20px;
+			margin: 20px;
+			text-align: center;
+			width: 300px;
+		}
+
+		.product img {
+			width: 200px;
+			height: 200px;
+			object-fit: cover;
+			border-radius: 5px;
+			margin-bottom: 20px;
+		}
+
+		h2 {
+			color: #333;
+			font-size: 20px;
+			margin-bottom: 10px;
+		}
+
+		p {
+			color: #666;
+			margin-bottom: 10px;
+		}
+
+		.price {
+			font-weight: bold;
+			color: #333;
+			margin-bottom: 10px;
+		}
+
+		.button-container {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			flex-direction: column;
+		}
+
+		button {
+			background-color: #333;
+			color: #fff;
+			border: none;
+			border-radius: 5px;
+			padding: 8px 16px;
+			cursor: pointer;
+			font-size: 14px;
+			transition: background-color 0.3s;
+			margin-top: 20px;
+		}
+
+		button:hover {
+			background-color: #555;
+		}
+
+		a {
+			display: block;
+			text-align: center;
+			margin-top: 20px;
+			color: #666;
+			text-decoration: none;
+		}
+	</style>
+	<script>
+		function addToCart(name, price) {
+			const cartItemsContainer = document.getElementById('cart-items');
+			const cartTotal = document.getElementById('cart-total');
+			let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+			let total = 0;
+
+			const item = cartItems.find((item) => item.name === name);
+			if (item) {
+				item.quantity++;
+			} else {
+				cartItems.push({
+					name: name,
+					price: price,
+					quantity: 1
+				});
+			}
+
+			localStorage.setItem('cartItems', JSON.stringify(cartItems));
+
+			cartItemsContainer.innerHTML = '';
+			if (cartItems.length > 0) {
+				for (let i = 0; i < cartItems.length; i++) {
+					const item = cartItems[i];
+					const totalPrice = item.price * item.quantity;
+					total += totalPrice;
+
+					const row = document.createElement('tr');
+					row.innerHTML = `
+						<td>${item.name}</td>
+						<td>$${item.price.toFixed(2)}</td>
+						<td>${item.quantity}</td>
+						<td>$
+							${totalPrice.toFixed(2)}</td>
+						<td><button class="remove-button" onclick="removeFromCart(${i})">Quitar</button>
+						</td>
+						`;
+						cartItemsContainer.appendChild(row);
+			}
+
+			cartTotal.innerText = `$${total.toFixed(2)}`;
+		} else {
+			const emptyRow = document.createElement('tr');
+			emptyRow.innerHTML = `
+				<td colspan="5" class="empty-message">El carrito está vacío.</td>
+			`;
+
+			cartItemsContainer.appendChild(emptyRow);
+			cartTotal.innerText = '$0.00';
+		}
+	}
+
+	function removeFromCart(index) {
+		let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+
+		if (index >= 0 && index < cartItems.length) {
+			cartItems.splice(index, 1);
+			localStorage.setItem('cartItems', JSON.stringify(cartItems));
+
+			showCartItems();
+		}
+	}
+
+	function showCartItems() {
+		const cartItemsContainer = document.getElementById('cart-items');
+		const cartTotal = document.getElementById('cart-total');
+		let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+		let total = 0;
+
+		cartItemsContainer.innerHTML = '';
+		if (cartItems.length > 0) {
+			for (let i = 0; i < cartItems.length; i++) {
+				const item = cartItems[i];
+				const totalPrice = item.price * item.quantity;
+				total += totalPrice;
+
+				const row = document.createElement('tr');
+				row.innerHTML = `
+					<td>${item.name}</td>
+					<td>$${item.price.toFixed(2)}</td>
+					<td>${item.quantity}</td>
+					<td>$${totalPrice.toFixed(2)}</td>
+					<td><button class="remove-button" onclick="removeFromCart(${i})">Quitar</button></td>
+				`;
+
+				cartItemsContainer.appendChild(row);
+			}
+
+			cartTotal.innerText = `$${total.toFixed(2)}`;
+		} else {
+			const emptyRow = document.createElement('tr');
+			emptyRow.innerHTML = `
+				<td colspan="5" class="empty-message">El carrito está vacío.</td>
+			`;
+
+			cartItemsContainer.appendChild(emptyRow);
+			cartTotal.innerText = '$0.00';
+		}
+	}
+</script>
+</head>
+<body>
+	<h1>Productos</h1>
+	<div class="container">
+		<div class="product">
+			<h2>Juego de llaves combinadas</h2>
+			<img src="Images/llavescombinadas.jfif" alt="Juego de llaves combinadas">
+			<p>Juego de 12 llaves combinadas en métrica y pulgadas.</p>
+			<p class="price">$50.00</p>
+			<div class="button-container">
+				<button onclick="addToCart('Juego de llaves combinadas', 50.00)">Agregar al carrito</button>
+			</div>
+		</div>
+		<div class="product">
+			<h2>Juego de dados de impacto</h2>
+			<img src="Images/dadosimpacto.jfif" alt="Juego de dados de impacto">
+			<p>Juego de 20 dados de impacto de diferentes medidas.</p>
+			<p class="price">$100.00</p>
+			<div class="button-container">
+				<button onclick="addToCart('Juego de dados de impacto', 100.00)">Agregar al carrito</
+					carto</button>
+</div>
+</div>
+<div class="product">
+<h2>Llave de torque</h2>
+<img src="Images/llavetorque.jfif" alt="Llave de torque">
+<p>Llave de torque de 1/2" con rango de torque de 10 a 150 lb-pie.</p>
+<p class="price">$80.00</p>
+<div class="button-container">
+<button onclick="addToCart('Llave de torque', 80.00)">Agregar al carrito</button>
+</div>
+</div>
+</div>
+<a href="index.html">Regresar a la página principal</a>
+<table id="cart">
+	<thead>
+		<tr>
+			<th>Producto</th>
+			<th>Precio</th>
+			<th>Cantidad</th>
+			<th>Total</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody id="cart-items">
+		<tr>
+			<td colspan="5" class="empty-message">El carrito está vacío.</td>
+		</tr>
+	</tbody>
+	<tfoot>
+		<tr>
+			<td colspan="3"></td>
+			<th>Total:</th>
+			<td id="cart-total">$0.00</td>
+		</tr>
+	</tfoot>
+</table>
+
+<script>
+	showCartItems();
+</script>
+</body>
+</html>
+```

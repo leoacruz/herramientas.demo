@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Tienda de herramientas automotrices - Carrito de compras</title>
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+			background-color: #f2f2f2;
+			margin: 0;
+			padding: 0;
+		}
+
+		.container {
+			max-width: 600px;
+			margin: 0 auto;
+			padding: 20px;
+		}
+
+		h1 {
+			text-align: center;
+			color: #333;
+			margin-bottom: 40px;
+		}
+
+		table {
+			width: 100%;
+			border-collapse: collapse;
+			margin-bottom: 40px;
+		}
+
+		table th,
+		table td {
+			padding: 10px;
+			text-align: left;
+			border-bottom: 1px solid #ccc;
+		}
+
+		table th {
+			background-color: #f8f8f8;
+			font-weight: bold;
+		}
+
+		tfoot td {
+			text-align: right;
+		}
+
+		a {
+			display: block;
+			text-align: center;
+			margin-top: 20px;
+			color: #666;
+			text-decoration: none;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<h1>Carrito de compras</h1>
+		<table>
+			<thead>
+				<tr>
+					<th>Producto</th>
+					<th>Precio</th>
+					<th>Cantidad</th>
+					<th>Total</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>Juego de llaves combinadas</td>
+					<td>$50.00</td>
+					<td>1</td>
+					<td>$50.00</td>
+				</tr>
+				<tr>
+					<td>Llave de torque</td>
+					<td>$80.00</td>
+					<td>2</td>
+					<td>$160.00</td>
+				</tr>
+			</tbody>
+			<tfoot>
+				<tr>
+					<td colspan="3">Total:</td>
+					<td>$210.00</td>
+				</tr>
+			</tfoot>
+		</table>
+		<a href="index.html">Regresar a la página principal</a>
+	</div>
+</body>
+</html>
